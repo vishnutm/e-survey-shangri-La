@@ -5,6 +5,8 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
+import { SurveyListComponent } from './views/resident-user/components/survey-list/survey-list.component';
+
 const routes: Routes = [
   {
     path: 'auth', component: AuthLayoutComponent,
@@ -12,6 +14,13 @@ const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'login', component: LoginComponent },
       { path: 'sign-up', component: RegisterComponent },
+    ],
+  },
+  {
+    path: 'resident',
+    children: [
+      { path: '', redirectTo: 'survey', pathMatch: 'full' },
+      { path: 'survey', component: SurveyListComponent },
     ],
   },
 ];

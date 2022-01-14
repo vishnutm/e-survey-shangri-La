@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { SurveyListComponent } from './views/resident-user/components/survey-list/survey-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthLayoutComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    SurveyListComponent
   ],
   imports: [
     BrowserModule,
