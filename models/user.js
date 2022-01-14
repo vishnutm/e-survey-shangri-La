@@ -20,6 +20,22 @@ const User = db.define('user', {
         type: Sequalize.STRING,
         allowNull: false,
         unique: true,
+    },
+    dob: {
+        type: Sequalize.STRING,
+        allowNull: false,
+    },
+    address: {
+        type: Sequalize.STRING,
+        allowNull: true,
+    },
+    password: {
+        type: Sequalize.STRING
+    },
+    SNI: {
+        type: Sequalize.STRING,
+        allowNull: false,
+        unique: true
     }
 })
 
