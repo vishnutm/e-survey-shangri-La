@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  node_app: 
+    container_name: survey_app
+    build:
+     context: . 
+    ports:
+      - "3000:3000"
+    
+    depends_on:
+      - survey_db
+  survey_db:
+    container_name: survey_db
+    image: "postgres:13"
+    ports:
+      - "5431:5431"
+    environment:
+      - POSTGRES_USER=vishnu
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=survey_db
+    volumes:
+      - survey_data:/var/lib/postgresql/data
+
+volumes:
+  survey_data: {}
