@@ -1,13 +1,9 @@
 const User = require('../models/user')
-
-
-exports.getAll = async (req,res)=>{
-
-    try {
-        const ALL = await User.findAll()
-        return res.status(200).json(ALL)
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-
-}
+const moment = require('moment');
+const uuidv4 = require('uuid/v4');
+const forgotEmail = require('./email/forgotPassword');
+let noxMailer = require('nox-emailer');
+let db = require('../db/initDb');
+let Helper = require('./Helper');
+let jwt = require("jsonwebtoken");
+const fs = require('fs');
