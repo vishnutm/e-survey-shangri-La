@@ -6,6 +6,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 
 import { SurveyListComponent } from './views/resident-user/components/survey-list/survey-list.component';
+import { DashboardComponent } from './views/council-officer/components/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,13 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'survey', pathMatch: 'full' },
       { path: 'survey', component: SurveyListComponent },
+    ],
+  },
+  {
+    path: 'council',
+    children: [
+      { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+      { path: 'dashboard', component: DashboardComponent },
     ],
   },
 ];

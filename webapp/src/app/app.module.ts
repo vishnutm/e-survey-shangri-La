@@ -7,6 +7,7 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { SurveyListComponent } from './views/resident-user/components/survey-list/survey-list.component';
+import { DashboardComponent } from './views/council-officer/components/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { SurveyListComponent } from './views/resident-user/components/survey-lis
     AuthLayoutComponent,
     LoginComponent,
     RegisterComponent,
-    SurveyListComponent
+    SurveyListComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

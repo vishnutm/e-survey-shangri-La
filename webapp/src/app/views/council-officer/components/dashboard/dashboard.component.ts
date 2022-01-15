@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-survey-list',
-  templateUrl: './survey-list.component.html',
-  styleUrls: ['./survey-list.component.css'],
+  selector: 'app-dashboard',
+  templateUrl: './dashboard.component.html',
+  styleUrls: ['./dashboard.component.css']
 })
-export class SurveyListComponent implements OnInit {
+export class DashboardComponent implements OnInit {
   public isLoading = false;
   public questionIndex: number;
   public questions = [
@@ -31,3 +31,4 @@ export class SurveyListComponent implements OnInit {
     this.isLoading = false;
   }
 }
+
