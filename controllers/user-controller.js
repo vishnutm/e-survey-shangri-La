@@ -7,6 +7,9 @@ const fs = require('fs');
 
 const Users={
 
+
+    
+
   async create(req, res) {
       
     const { username, email, password, dob, address,SNI } = req.body;
@@ -90,6 +93,17 @@ const Users={
     }
   },
 
+  async getAll(req, res){
+
+    try {
+        const data = await db.User.findAll()
+    res.status(200).json(data)
+    } catch (error) {
+        res.status(500).json({ error})
+    }
+
+    
+  }
 
 }
 module.exports = Users;
