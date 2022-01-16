@@ -21,6 +21,12 @@ const Users = {
             address: Joi.string().required(),
             SNI : Joi.string().max(16).required()
         });
+
+        const { error, value } = schema.validate(req.body)
+
+            if (error) {
+                throw error.message
+            }
         const hashPassword = Helper.hashPassword(password);
 
         db.User.findOne({
