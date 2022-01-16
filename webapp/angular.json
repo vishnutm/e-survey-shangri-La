@@ -25,7 +25,8 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/b4-toastr.css"
             ],
             "scripts": []
           },
@@ -89,7 +90,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/custom-theme.scss",
+              "src/styles.css",
+              "src/assets/css/b4-toastr.css"
             ],
             "scripts": []
           }
