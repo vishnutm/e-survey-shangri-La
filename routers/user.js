@@ -5,10 +5,14 @@ const router = express.Router()
 
 
 //CRUD 
+console.log('CRUD')
+router.post('/register',controller.create);
+router.post('/login',controller.login)
 
-router.get('/',controller.getAll)
 
 
 
 
 module.exports = router
+
+

@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-let db = require('../db/initDb');
+let db = require('../models/token');
 
 const Auth = {
     

@@ -36,6 +36,9 @@ const User = db.define('user', {
         type: Sequalize.STRING,
         allowNull: false,
         unique: true
+    },
+    createdAt: {
+        type: Sequalize.DATE
     }
 })
 

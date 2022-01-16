@@ -12,7 +12,7 @@ services:
       - PGUSER=vishnu
       - PGPASSWORD=12345
       - PGHOST=survey_db
-
+      - EXTERNAL_PORT=3000
     depends_on:
       - survey_db
   survey_db:
