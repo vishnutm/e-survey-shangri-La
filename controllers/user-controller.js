@@ -4,7 +4,7 @@ let db = require('../models/user');
 let Helper = require('./helper');
 let jwt = require("jsonwebtoken");
 const fs = require('fs');
-
+const Joi = require('joi')
 const Users = {
 
 
@@ -13,6 +13,14 @@ const Users = {
     async create(req, res) {
 
         const { username, email, password, dob, address, SNI } = req.body;
+        const schema = Joi.object({
+            username: Joi.string().required(),
+            email: Joi.string().email().required(),
+            password: Joi.string().required(),
+            dob : JOi.date().required(),
+            address: Joi.string().required(),
+            SNI : Joi.string().max(16).required()
+        });
         const hashPassword = Helper.hashPassword(password);
 
         db.User.findOne({
@@ -48,6 +56,19 @@ const Users = {
     async login(req, res) {
         try {
             const { email, password } = req.body;
+
+            const schema = Joi.object({
+
+                email: Joi.string().email().required(),
+                password: Joi.string().required()
+            });
+
+            const { error, value } = schema.validate(req.body)
+
+            if (error) {
+                throw error.message
+            }
+
             if (!email || !password) {
                 return res.status(400).send({ 'message': 'some values are missing' });
             }
