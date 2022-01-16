@@ -19,7 +19,7 @@ const Users = {
             password: Joi.string().required(),
             dob : JOi.date().required(),
             address: Joi.string().required(),
-            SNI : Joi.string().max(16).required()
+            SNI : Joi.string().min(8).required()
         });
 
         const { error, value } = schema.validate(req.body)
