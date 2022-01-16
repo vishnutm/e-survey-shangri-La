@@ -1,1 +1,33 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/* @import "~@angular/material/prebuilt-themes/indigo-pink.css"; */
+.add-edit-modal-head{
+    font-size: 1.5rem;
+    text-align: center;
+    border-bottom: 0.1rem solid #cfcfcf;
+    color: #7c7c7c;
+    margin: 0rem 0 2rem 0;
+    padding: 0.5rem 0;
+}
+.add-edit-div{
+    margin: 1rem 2rem;
+}
+.form-control{
+    width: 50vw;
+    margin: 0 auto;
+}
+.q-a-label{
+    font-size: 1rem;
+    color: #817c7c;
+    font-weight: 500;
+}
+.option-div{
+    margin: 4vh 0;
+    display: grid;
+}
+.button-div{
+    display: flex;
+    justify-content: flex-end;
+}
+.button-div button{
+    margin: 0.5rem;
+    width: 8rem;
+}

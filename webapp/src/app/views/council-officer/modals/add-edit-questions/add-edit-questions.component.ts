@@ -19,11 +19,11 @@ public isLoading: boolean;
   }
 
   ngOnInit(): void {
-    this.isLoading=false;
+    this.isLoading = false;
   }
 
-  close(){
-    this.dialogRef.close({ event: 'success' });
+  public close(): void{
+    this.dialogRef.close({ event: 'cancel' });
   }
 
 }

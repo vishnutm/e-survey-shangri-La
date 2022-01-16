@@ -127,6 +127,14 @@ cursor: pointer;
   font-size: 0.9rem !important;
 }
 
+.form-holder i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 15px;
+  color: #333;
+}
  .spinner {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid #3498db; /* Blue */
@@ -227,7 +235,14 @@ h3 {
     color: #999;
     transform: translateY(1px); }
   .form-control:focus {
-    border-bottom: 1px solid #accffe; }
+    border-bottom: 1px solid #accffe; 
+    outline: none;
+  }
+
+
+  input:focus, textarea:focus, select:focus{
+    outline: none !important;
+}
 
 button {
   border: none;
