@@ -2,16 +2,16 @@
     <div class="survey">
       <h1 class="survey-head">e-Survey Shangri-La Dashboard</h1>
       <div class="add-question-button">
-        <button><i class="fal fa-plus"></i>Add Question</button>
+        <button (click)="openAddEditQuestionOptions(-1,'Add')"><i class="fal fa-plus"></i>Add Question</button>
       </div>
       <div class="survey-question-div" *ngFor="let question of questions; let i = index">
         <div class="question-list">
-          <h6 class="survey-question" (click)="openQuestionDetail(i)">
+          <h6 class="survey-question">
             <i class="fas fa-circle question-icon"></i>{{ question.text }}
           </h6>
           <div class="question-actions">
             <i class="fas fa-eye"></i>
-            <i class="far fa-edit"></i>
+            <i class="far fa-edit" (click)="openAddEditQuestionOptions(i, 'Edit')"></i>
           </div>
         </div>
        

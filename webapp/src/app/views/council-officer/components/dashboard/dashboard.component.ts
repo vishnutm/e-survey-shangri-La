@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MatDialog } from '@angular/material/dialog';
+// import { AddCouponsComponent } from '../../modals/add-coupons/add-coupons.component'
+import { AddEditQuestionsComponent } from '../../modals/add-edit-questions/add-edit-questions.component'
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -15,20 +17,28 @@ export class DashboardComponent implements OnInit {
   ];
 
   public options = [];
-  constructor() {}
+  constructor(
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {}
-
-  public openQuestion(i: number): void {
-    this.questionIndex = i;
-    this.isLoading = true;
-    this.options = [
-      { id: '1', text: 'Inside the inner ring road.' },
-      { id: '2', text: 'Outskrit of the town inside outer ring road.' },
-      { id: '3', text: 'Town centre postcodes starting with SL only.' },
-    ];
-
-    this.isLoading = false;
+  ngOnInit(): void {
+    // console.log('hii');
+    
+    // this.openAddEditQuestionOptions(0, 'Add');
   }
+
+  public openAddEditQuestionOptions(i: any, qsaction: string): void {
+    const dialogRef = this.dialog.open(AddEditQuestionsComponent, {
+      data: {
+        id: i,
+        action: qsaction,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  
 }
 
