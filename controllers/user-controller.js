@@ -10,37 +10,44 @@ const Joi = require('joi')
 const Users = {
 
 async gernerateSni(req, res){
-    const {sniNo} = req.body;
-    const schema = Joi.object({
-        sniNo :joi.string().min(8).required()
-    });
-    const { error, value } = schema.validate(req.body)
+    try{
 
-    if (error) {
-        throw error.message
-    }
-    db.sni.SNIList.create({
-        sniNo
-    }).then((resp)=>{
-        res.status(200).send({
-            status: 'success',
-            data:resp.data,
-            message: 'SNI added'
+        const {sniNo} = req.body;
+        const schema = Joi.object({
+            sniNo :Joi.string().min(6).required()
+        });
+        const { error, value } = schema.validate(req.body)
+    
+        if (error) {
+            throw error.message
+        }
+        db.sni.create({
+            sniNo
+        }).then((resp)=>{
+           return res.status(200).send({
+                status: 'success',
+                data:resp,
+                message: 'SNI added'
+            })
         })
-    })
+    }catch(err){
+        throw new Error(err)
+    }
+   
 },
 
 
     async create(req, res) {
 
         const { username, email, password, dob, address, SNI } = req.body;
+        
         const schema = Joi.object({
             username: Joi.string().required(),
             email: Joi.string().email().required(),
             password: Joi.string().required(),
-            dob : JOi.date().required(),
+            dob : Joi.date().required(),
             address: Joi.string().required(),
-            SNI : Joi.string().min(8).required()
+            SNI : Joi.string().min(6).required()
         });
 
         const { error, value } = schema.validate(req.body)
@@ -51,15 +58,17 @@ async gernerateSni(req, res){
         const hashPassword = Helper.hashPassword(password);
 
         db.User.findOne({
-            where: { email: email }
+            where: { 
+                email: email 
+            }
         }).then((resp) => {
             if (resp == null) {
-                sniNo.SNIList.findOne({
+                db.sni.findOne({
                     where:{
                         sniNo:SNI
                     }
                 }).then((responseSNI) => {
-                    if ((responseSNI.sniNo ==SNI)&&(responseSNI.status==false)){
+                    if ((responseSNI.sniNo ==SNI)){
                         db.User.create({
                             username,
                             email,
@@ -77,7 +86,7 @@ async gernerateSni(req, res){
                         })
                     }
                     else {
-                        res.status(400).send({
+                       return res.status(400).send({
                             status: false,
                             message: 'SNI number does not exist'
                         });
@@ -96,64 +105,111 @@ async gernerateSni(req, res){
         })
     },
 
+    // async login(req, res) {
+    //     try {
+    //         const { email, password } = req.body;
+
+    //         const schema = Joi.object({
+
+    //             email: Joi.string().email().required(),
+    //             password: Joi.string().required()
+    //         });
+
+    //         const { error, value } = schema.validate(req.body)
+
+    //         if (error) {
+    //             throw error.message
+    //         }
+
+    //         if (!email || !password) {
+    //             return res.status(400).send({ 'message': 'some values are missing' });
+    //         }
+    //         if (!Helper.isValidEmail(email)) {
+    //             return res.status(400).send({ 'message': 'Please enter a valid email address' });
+    //         }
+    //         db.User.findOne({
+    //             where: {
+    //                 email: email
+    //             }
+    //         }).then((userResp) => {
+    //             console.log("response",userResp)
+    //             if (userResp != null) {
+                    
+    //                     if (!Helper.comparePassword(userResp.password, password)) {
+    //                         return res.status(400).send({ message: 'The credentials you provided is incorrect' });
+    //                     }
+    //                    try {
+    //                     const token = Helper.generatetoken(userResp.id);
+    //                     console.log(token);
+
+    //                     const tokenCreated = updateOrCreate(db.Token, { userId: userResp.id, tokentype: 'session' }, { verifyToken: token, userId: userResp.id, tokentype: 'session' });
+    //                     if (tokenCreated) {
+    //                         const user = {
+    //                             id: userResp.id,
+    //                             email: userResp.email,
+    //                             username: userResp.username,
+    //                             dob: userResp.dob,
+    //                             address: userResp.address,
+    //                             SNI: userResp.SNI
+
+    //                         }
+    //                         return res.status(200).send({ user, token });
+    //                     }
+    //                    } catch (error) {
+    //                        throw new Error(error.message)
+    //                    }
+                       
+                  
+    //             }
+    //             else {
+    //                 return res.status(400).send({ message: 'No user has been enrolled using this credential' });
+    //             }
+    //         })
+    //     } catch (error) {
+    //         return res.status(400).send(error)
+    //     }
+    // },
+
     async login(req, res) {
         try {
+            // Get user input
             const { email, password } = req.body;
-
-            const schema = Joi.object({
-
-                email: Joi.string().email().required(),
-                password: Joi.string().required()
+        
+            // Validate user input
+            if (!(email && password)) {
+              res.status(400).send("All input is required");
+            }
+            // Validate if user exist in our database
+            const user = await db.User.findOne({ 
+                where: { email: email}
             });
-
-            const { error, value } = schema.validate(req.body)
-
-            if (error) {
-                throw error.message
-            }
-
-            if (!email || !password) {
-                return res.status(400).send({ 'message': 'some values are missing' });
-            }
-            if (!Helper.isValidEmail(email)) {
-                return res.status(400).send({ 'message': 'Please enter a valid email address' });
-            }
-            db.User.findOne({
-                where: {
-                    email: email
+        
+            if (user && (await Helper.comparePassword(user.password,password))) {
+              // Create token
+              const token = jwt.sign(
+                { user_id: user._id, email },
+                process.env.SECRET,
+                {
+                  expiresIn: "2h",
                 }
-            }).then((userResp) => {
-                if (userResp != null) {
-                    
-                        if (!Helper.comparePassword(userResp.password, password)) {
-                            return res.status(400).send({ message: 'The credentials you provided is incorrect' });
-                        }
-                       
-                        const token = Helper.generatetoken(userResp.id);
-                        const tokenCreated = updateOrCreate(db.Token, { userId: userResp.id, tokentype: 'session' }, { verifyToken: token, userId: userResp.id, tokentype: 'session' });
-                        if (tokenCreated) {
-                            const user = {
-                                id: userResp.id,
-                                email: userResp.email,
-                                username: userResp.username,
-                                dob: userResp.dob,
-                                address: userResp.address,
-                                SNI: userResp.SNI
-
-                            }
-                            return res.status(200).send({ user, token });
-                        }
-                  
-                }
-                else {
-                    return res.status(400).send({ message: 'No user has been enrolled using this credential' });
-                }
-            })
-        } catch (error) {
-            return res.status(400).send(error)
-        }
+              );
+        user.token=token;
+              // save user token
+              await db.User.update({
+              token:token
+              },{
+                  where: {email: email}
+              })
+        
+              // user
+              res.status(200).json(user);
+            }
+            res.status(400).send("Invalid Credentials");
+          } catch (err) {
+            res.status(400).send(err.message);
+          }
+        
     },
-
 
     async logout(req,res){
         const {userid} = req.body;

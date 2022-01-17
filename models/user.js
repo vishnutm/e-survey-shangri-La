@@ -22,7 +22,7 @@ const User = db.define('user', {
         unique: true,
     },
     dob: {
-        type: Sequalize.STRING,
+        type: Sequalize.DATEONLY,
         allowNull: false,
     },
     address: {
@@ -39,6 +39,10 @@ const User = db.define('user', {
     },
     createdAt: {
         type: Sequalize.DATE
+    },
+    token:{
+type: Sequalize.STRING,
+allowNull: true
     }
 })
 

@@ -16,12 +16,7 @@ const SNIList = db.define('snilist', {
         type: Sequalize.STRING,
         allowNull: false,
         unique: true,
-    },
-    status: {
-        type: Sequalize.BOOLEAN,
-        allowNull: false,
-        unique: true,
-    },
+    }
 
 })
 module.exports = SNIList;

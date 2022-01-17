@@ -7,7 +7,7 @@ const Questions =  {
     async Create(req, res) {
 
 
-        const {question,options,count} = req.body;
+        const {question,options,count,text} = req.body;
         const schema = Joi.object({
             question: Joi.string().required(),
             count:Joi.number().positive(),
@@ -25,7 +25,10 @@ const Questions =  {
 
 
             const question = await db.Questions.create({
-                
+                question: question,
+                options:{
+                    'id':1,'text':text
+                }
 
             })
         } catch (error) {
