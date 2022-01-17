@@ -7,7 +7,6 @@ const db = require('../util/database')
 const Questions = db.define('question',{
     id:{
         type: Sequalize.INTEGER,
-        unique: true,
         autoIncrement: true,
         allowNull:false,
         primaryKey: true,
@@ -25,9 +24,6 @@ const Questions = db.define('question',{
         type: Sequalize.INTEGER,
         allowNull:true
     },
-    userId:{
-        type: Sequalize.INTEGER,
-        
-    }
+    
 })
 module.exports = Questions;

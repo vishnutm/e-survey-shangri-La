@@ -128,7 +128,7 @@ async gernerateSni(req, res){
                         if (!Helper.comparePassword(userResp.password, password)) {
                             return res.status(400).send({ message: 'The credentials you provided is incorrect' });
                         }
-                        // var data = img.replace(/^data:image\/\w+;base64,/, "");
+                       
                         const token = Helper.generatetoken(userResp.id);
                         const tokenCreated = updateOrCreate(db.Token, { userId: userResp.id, tokentype: 'session' }, { verifyToken: token, userId: userResp.id, tokentype: 'session' });
                         if (tokenCreated) {

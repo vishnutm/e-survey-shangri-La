@@ -13,15 +13,18 @@ const Answers = db.define('answer', {
         primaryKey: true,
     },
     questionId: {
-        type: Sequalize.STRING,
+        type: Sequalize.INTEGER,
         allowNull: false,
-        unique: true,
+        
     },
     answers: {
         type: Sequalize.STRING,
 
     },
-
+    userId:{
+        type: Sequalize.INTEGER,
+        
+    }
 })
 
 
