@@ -1,13 +1,34 @@
 
 
 let db = require('../models/user');
+let sni = require('../models/sni');
+let sniNo = require('../models/sni');
 let Helper = require('./helper');
 let jwt = require("jsonwebtoken");
 const fs = require('fs');
 const Joi = require('joi')
 const Users = {
 
+async gernerateSni(req, res){
+    const {sniNo} = req.body;
+    const schema = Joi.object({
+        sniNo :joi.string().min(8).required()
+    });
+    const { error, value } = schema.validate(req.body)
 
+    if (error) {
+        throw error.message
+    }
+    sni.SNIList.create({
+        sniNo
+    }).then((resp)=>{
+        res.status(200).send({
+            status: 'success',
+            data:resp.data,
+            message: 'SNI added'
+        })
+    })
+},
 
 
     async create(req, res) {
@@ -33,20 +54,36 @@ const Users = {
             where: { email: email }
         }).then((resp) => {
             if (resp == null) {
-                db.User.create({
-                    username,
-                    email,
-                    password: hashPassword,
-                    dob,
-                    address,
-                    SNI,
-                    createdAt: Date.now()
-                }).then(async (resp) => {
-                    res.status(200).send({
-                        status: 'success',
-                        message: 'User registered successfully'
-                    })
+                sniNo.SNIList.findOne({
+                    where:{
+                        sniNo:SNI
+                    }
+                }).then((responseSNI) => {
+                    if ((responseSNI.sniNo ==SNI)&&(responseSNI.status==false)){
+                        db.User.create({
+                            username,
+                            email,
+                            password: hashPassword,
+                            dob,
+                            address,
+                            SNI,
+                            createdAt: Date.now()
+                        }).then(async (resp) => {
+                            res.status(200).send({
+                                status: 'success',
+                                data:resp.data,
+                                message: 'User registered successfully'
+                            })
+                        })
+                    }
+                    else {
+                        res.status(400).send({
+                            status: false,
+                            message: 'SNI number does not exist'
+                        });
+                    }
                 })
+              
             }
             else {
                 res.status(400).send({
@@ -87,7 +124,7 @@ const Users = {
                 }
             }).then((userResp) => {
                 if (userResp != null) {
-                    if (userResp.emailVerified) {
+                    
                         if (!Helper.comparePassword(userResp.password, password)) {
                             return res.status(400).send({ message: 'The credentials you provided is incorrect' });
                         }
@@ -106,10 +143,7 @@ const Users = {
                             }
                             return res.status(200).send({ user, token });
                         }
-                    }
-                    else {
-                        return res.status(400).send({ message: 'Please try to login after verifying your account' });
-                    }
+                  
                 }
                 else {
                     return res.status(400).send({ message: 'No user has been enrolled using this credential' });
@@ -120,6 +154,25 @@ const Users = {
         }
     },
 
+
+    async logout(req,res){
+        const {userid} = req.body;
+        db.Token.destroy({
+          where:{
+            userId: userid,
+            tokentype: 'session'
+          }
+        }).then((tokenRemove)=>{
+          if(tokenRemove==1){
+            return res.status(200).send({message: 'Logout successfully'})
+          }
+          else{
+            return res.status(400).send({message: 'Already logged out.'})
+          }
+        })
+      },
+   
+    
     async getAll(req, res) {
 
         try {

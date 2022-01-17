@@ -16,7 +16,7 @@ var Token = sequelize.define('token',{
     userId:{
         type: Sequelize.UUID,
         references: {
-            model: 'users', 
+            model: 'user', 
             key: 'id', 
          }
     },
@@ -24,4 +24,4 @@ var Token = sequelize.define('token',{
         type: Sequelize.STRING
     }
 })
-module.exports =Token;
+module.exports ={Token};

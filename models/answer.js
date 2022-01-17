@@ -14,9 +14,6 @@ questionId:{
 },
 answers: {
     type:Sequalize.STRING
-},
-userId:{
-    type:Sequalize.INTEGER
 }
 })
-module.exports = Answers;
+module.exports = {Answers};

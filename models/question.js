@@ -15,7 +15,7 @@ const Questions = db.define('question',{
         allowNull:false
     },
     options:{
-        type: Sequalize.STRING
+        type: Sequalize.JSONB
     },
     count:{
         type: Sequalize.INTEGER,
@@ -26,4 +26,4 @@ const Questions = db.define('question',{
         
     }
 })
-module.exports = Questions;
+module.exports = {Questions};
