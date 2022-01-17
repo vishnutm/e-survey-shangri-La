@@ -1,27 +1,35 @@
 const Sequalize = require('sequelize');
 
-const db = require('../util/database');
+const db = require('../util/database')
 
-var Token = sequelize.define('token',{
-    tokenId:{
+
+
+const Token = db.define('token', {
+
+    tokenId: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
+        type: Sequalize.UUID,
         defaultValue: () => uuid()
     },
     verifyToken:{
-        type: Sequelize.STRING,
+        type: Sequalize.STRING,
         unique: true
     },
     userId:{
-        type: Sequelize.UUID,
+        type: Sequalize.UUID,
         references: {
             model: 'user', 
             key: 'id', 
          }
     },
     tokentype:{
-        type: Sequelize.STRING
-    }
+        type: Sequalize.STRING
+    },
+   
 })
+
+
+
+
 module.exports ={Token};

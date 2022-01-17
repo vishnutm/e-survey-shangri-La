@@ -9,6 +9,7 @@ console.log('CRUD')
 router.post('/register',controller.create);
 router.post('/login',controller.login)
 router.post('/sni',controller.gernerateSni)
+
 router.get('/',controller.getAll)
 router.post('/user/logout', controller.logout);
 

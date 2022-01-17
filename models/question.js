@@ -1,5 +1,8 @@
-const Sequalize = require('sequelize'),
+const Sequalize = require('sequelize');
+
 const db = require('../util/database')
+
+
 
 const Questions = db.define('question',{
     id:{
@@ -15,7 +18,8 @@ const Questions = db.define('question',{
         allowNull:false
     },
     options:{
-        type: Sequalize.JSONB
+        type: Sequalize.JSONB,
+        allowNull: false
     },
     count:{
         type: Sequalize.INTEGER,

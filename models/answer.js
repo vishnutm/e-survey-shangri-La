@@ -1,19 +1,29 @@
-const Sequalize = require('sequelize'),
-const db = require('../util/database'),
 
-const Answers = db.define('answers',{
-id:{
-    type:Sequalize.INTEGER,
-    unique:true,
-    autoIncrement:true,
-    allowNull: false,
-    primaryKey:true
-},
-questionId:{
-    type:Sequalize.INTEGER
-},
-answers: {
-    type:Sequalize.STRING
-}
+
+
+const Sequalize = require('sequelize')
+const db = require('../util/database')
+
+const Answers = db.define('answer', {
+
+    id: {
+        type: Sequalize.INTEGER,
+        autoIncrement: true,
+        allowNull: false,
+        primaryKey: true,
+    },
+    questionId: {
+        type: Sequalize.STRING,
+        allowNull: false,
+        unique: true,
+    },
+    answers: {
+        type: Sequalize.STRING,
+
+    },
+
 })
-module.exports = {Answers};
+
+
+
+module.exports = { Answers };

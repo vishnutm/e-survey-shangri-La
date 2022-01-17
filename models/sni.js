@@ -1,22 +1,27 @@
 const Sequalize = require('sequelize');
 
-const db = require('../util/database');
+const db = require('../util/database')
 
-var SNIList = sequelize.define('snilist',{
-    sniId:{
-        type:Sequalize.INTEGER,
+
+
+const SNIList = db.define('snilist', {
+
+    sniId: {
+        type: Sequalize.INTEGER,
         autoIncrement: true,
-        unique: true,
+        allowNull: false,
         primaryKey: true,
     },
-    sniNo:{
-        type: Sequelize.STRING,
-        unique: true
+    sniNo: {
+        type: Sequalize.STRING,
+        allowNull: false,
+        unique: true,
     },
-    status:{
-      type: Sequelize.Boolean,
-      default: false
-    }
-   
+    status: {
+        type: Sequalize.BOOLEAN,
+        allowNull: false,
+        unique: true,
+    },
+
 })
-module.exports ={SNIList};
+module.exports = { SNIList };
