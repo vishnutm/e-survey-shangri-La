@@ -7,4 +7,6 @@ const sequelize = new Sequalize(process.env.PGDATABASE, process.env.PGUSER, proc
   logging: true,
 })
 
+
+
 module.exports = sequelize
