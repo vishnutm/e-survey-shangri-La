@@ -30,4 +30,4 @@ const Questions = db.define('question',{
         
     }
 })
-module.exports = {Questions};
+module.exports = Questions;

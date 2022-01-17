@@ -1,8 +1,8 @@
 
 
-let db = require('../models/user');
-let sni = require('../models/sni');
-let sniNo = require('../models/sni');
+let db = require('../models');
+// let sni = require('../models/sni');
+// let sniNo = require('../models/sni');
 let Helper = require('./helper');
 let jwt = require("jsonwebtoken");
 const fs = require('fs');
@@ -19,7 +19,7 @@ async gernerateSni(req, res){
     if (error) {
         throw error.message
     }
-    sni.SNIList.create({
+    db.sni.SNIList.create({
         sniNo
     }).then((resp)=>{
         res.status(200).send({

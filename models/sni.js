@@ -24,4 +24,4 @@ const SNIList = db.define('snilist', {
     },
 
 })
-module.exports = { SNIList };
+module.exports = SNIList;

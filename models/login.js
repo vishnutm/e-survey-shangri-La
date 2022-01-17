@@ -29,4 +29,4 @@ const Login = db.define('login', {
     },
 
 })
-module.exports = { Login };
+module.exports = Login;

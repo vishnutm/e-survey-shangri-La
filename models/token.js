@@ -32,4 +32,4 @@ const Token = db.define('token', {
 
 
 
-module.exports ={Token};
+module.exports =Token;

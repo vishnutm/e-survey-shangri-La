@@ -26,4 +26,4 @@ const Answers = db.define('answer', {
 
 
 
-module.exports = { Answers };
+module.exports = Answers;
