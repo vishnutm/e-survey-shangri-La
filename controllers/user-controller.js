@@ -30,6 +30,7 @@ const Users = {
                 }).then(async (resp) => {
                     res.status(200).send({
                         status: 'success',
+                        data:resp.data,
                         message: 'User registered successfully'
                     })
                 })
@@ -60,7 +61,7 @@ const Users = {
                 }
             }).then((userResp) => {
                 if (userResp != null) {
-                    if (userResp.emailVerified) {
+                   
                         if (!Helper.comparePassword(userResp.password, password)) {
                             return res.status(400).send({ message: 'The credentials you provided is incorrect' });
                         }
@@ -79,10 +80,7 @@ const Users = {
                             }
                             return res.status(200).send({ user, token });
                         }
-                    }
-                    else {
-                        return res.status(400).send({ message: 'Please try to login after verifying your account' });
-                    }
+                   
                 }
                 else {
                     return res.status(400).send({ message: 'No user has been enrolled using this credential' });
