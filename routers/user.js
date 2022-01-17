@@ -1,4 +1,5 @@
-const controller = require('../controllers/user-controller');
+const usercontroller = require('../controllers/user-controller');
+const questionController = require('../controllers/question-controller')
 const express = require('express')
 
 const router = express.Router()
@@ -6,12 +7,12 @@ const router = express.Router()
 
 //CRUD 
 console.log('CRUD')
-router.post('/register',controller.create);
-router.post('/login',controller.login)
-router.post('/sni',controller.gernerateSni)
+router.post('/register',usercontroller.create);
+router.post('/login',usercontroller.login)
+router.post('/sni',usercontroller.gernerateSni)
 
-router.get('/',controller.getAll)
-router.post('/user/logout', controller.logout);
+router.get('/',usercontroller.getAll)
+router.post('/user/logout', usercontroller.logout);
 
 
 module.exports = router

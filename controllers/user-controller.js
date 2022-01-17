@@ -105,70 +105,7 @@ async gernerateSni(req, res){
         })
     },
 
-    // async login(req, res) {
-    //     try {
-    //         const { email, password } = req.body;
-
-    //         const schema = Joi.object({
-
-    //             email: Joi.string().email().required(),
-    //             password: Joi.string().required()
-    //         });
-
-    //         const { error, value } = schema.validate(req.body)
-
-    //         if (error) {
-    //             throw error.message
-    //         }
-
-    //         if (!email || !password) {
-    //             return res.status(400).send({ 'message': 'some values are missing' });
-    //         }
-    //         if (!Helper.isValidEmail(email)) {
-    //             return res.status(400).send({ 'message': 'Please enter a valid email address' });
-    //         }
-    //         db.User.findOne({
-    //             where: {
-    //                 email: email
-    //             }
-    //         }).then((userResp) => {
-    //             console.log("response",userResp)
-    //             if (userResp != null) {
-                    
-    //                     if (!Helper.comparePassword(userResp.password, password)) {
-    //                         return res.status(400).send({ message: 'The credentials you provided is incorrect' });
-    //                     }
-    //                    try {
-    //                     const token = Helper.generatetoken(userResp.id);
-    //                     console.log(token);
-
-    //                     const tokenCreated = updateOrCreate(db.Token, { userId: userResp.id, tokentype: 'session' }, { verifyToken: token, userId: userResp.id, tokentype: 'session' });
-    //                     if (tokenCreated) {
-    //                         const user = {
-    //                             id: userResp.id,
-    //                             email: userResp.email,
-    //                             username: userResp.username,
-    //                             dob: userResp.dob,
-    //                             address: userResp.address,
-    //                             SNI: userResp.SNI
-
-    //                         }
-    //                         return res.status(200).send({ user, token });
-    //                     }
-    //                    } catch (error) {
-    //                        throw new Error(error.message)
-    //                    }
-                       
-                  
-    //             }
-    //             else {
-    //                 return res.status(400).send({ message: 'No user has been enrolled using this credential' });
-    //             }
-    //         })
-    //     } catch (error) {
-    //         return res.status(400).send(error)
-    //     }
-    // },
+ 
 
     async login(req, res) {
         try {
@@ -177,7 +114,7 @@ async gernerateSni(req, res){
         
             // Validate user input
             if (!(email && password)) {
-              res.status(400).send("All input is required");
+              res.status(400).json({ message:"All input is required"});
             }
             // Validate if user exist in our database
             const user = await db.User.findOne({ 
@@ -204,9 +141,9 @@ async gernerateSni(req, res){
               // user
               res.status(200).json(user);
             }
-            res.status(400).send("Invalid Credentials");
+            res.status(400).json({message:"Invalid Credentials"});
           } catch (err) {
-            res.status(400).send(err.message);
+            res.status(500).json(err.message);
           }
         
     },
