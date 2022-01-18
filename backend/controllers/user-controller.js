@@ -176,7 +176,23 @@ async gernerateSni(req, res){
         }
 
 
-    }
+    },
+
+    async singleSNI(req,res){
+        try{
+            const {SNI}=req.body
+            const SniList = await db.User.findOne({
+                where:{SNI: SNI}
+            })
+            if(SniList.SNI==null){
+                req.status(200).json({ message:"Can use SNI"})
+            }else{
+                req.status(400).json({ message:"SNI number already used" })
+            }
+        }catch(error){
+            res.status(500).json({ error})
+        }
+        }
 
 }
 module.exports = Users;

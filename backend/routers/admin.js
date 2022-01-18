@@ -8,5 +8,5 @@ router.post('/questions',questionController.Create);
 router.post('/updateQuestion',questionController.updateQuestion);
 router.get('/viewQuestions',questionController.viewQuestions)
 router.delete('/removeQuestion',questionController.removeQuestion)
-
+router.post('/viewSingleQuestions',questionController.viewSingleQuestions)
 module.exports =router

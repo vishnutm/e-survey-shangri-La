@@ -13,7 +13,7 @@ router.post('/sni',usercontroller.gernerateSni)
 
 router.get('/',usercontroller.getAll)
 router.post('/user/logout', usercontroller.logout);
-
+router.post('/viewSNI',usercontroller.singleSNI);
 
 module.exports = router
 

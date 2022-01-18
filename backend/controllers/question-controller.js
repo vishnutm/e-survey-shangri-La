@@ -59,6 +59,20 @@ const Questions =  {
     async viewQuestions(req, res){
         try{
             const data = await db.Questions.findAll()
+            
+            res.status(200).json(data)
+        }catch(error){
+            res.status(500).json({ error })
+        }
+    },
+
+    async viewSingleQuestions(req, res){
+        try{
+            const {id}=req.body
+            const data = await db.Questions.findOne({
+                where:{id:id}
+            })
+            
             res.status(200).send(data)
         }catch(error){
             res.status(500).json({ error })
@@ -74,9 +88,8 @@ const Questions =  {
         }catch(error){
             res.status(500).json({ error})
         }
-    }
+    },
+   
 }
 
-
-
-module.exports = Questions
+module.exports =Questions
