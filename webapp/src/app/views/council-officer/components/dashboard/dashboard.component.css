@@ -1,0 +1,71 @@
+.survey-wrapp {
+  width: 100%;
+  height: 100%;
+}
+.survey {
+  margin: 0;
+  padding: 4vh 5vw;
+}
+.survey-head {
+  font-size: 1.5rem;
+  text-align: center;
+  border-bottom: 0.1rem solid #cfcfcf;
+  color: #7c7c7c;
+  margin: 0rem 5rem 2rem 5rem;
+  padding: 1rem 0;
+}
+.add-question-button {
+  width: 100%;
+}
+
+.add-question-button button {
+  width: fit-content;
+  padding: 0 1rem;
+  margin: 0rem 0.5rem 1rem auto;
+}
+.fa-plus {
+  margin: 0 0.5rem;
+}
+.survey-question-div {
+  background: #f5e5f2;
+  margin: 1rem 0.5rem;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  /* display: grid;
+    justify-content: space-between; */
+}
+.survey-question-div:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.25);
+}
+.question-list {
+  display: flex;
+  justify-content: space-between;
+}
+.survey-question {
+  padding: 1rem 0;
+  cursor: pointer;
+  color: #7c7c7c;
+  font-size: 1rem;
+  margin: 0;
+}
+.do-survey {
+  padding: 1rem 0;
+}
+.question-icon {
+  font-size: 0.75rem;
+  margin: auto 1rem;
+}
+.question-actions {
+  display: flex;
+  margin-right: 3vw;
+}
+.question-actions i {
+  margin: auto 3vw;
+  font-weight: 200 !important;
+  font-size: 1.2rem;
+}
+.question-actions i:hover {
+  font-weight: 800 !important;
+  cursor: pointer;
+}

@@ -1,0 +1,21 @@
+<div class="survey-wrapp">
+    <div class="survey">
+      <h1 class="survey-head">e-Survey Shangri-La Dashboard</h1>
+      <div class="add-question-button">
+        <button (click)="openAddEditQuestionOptions(-1,'Add')"><i class="fal fa-plus"></i>Add Question</button>
+      </div>
+      <div class="survey-question-div" *ngFor="let question of questions; let i = index">
+        <div class="question-list">
+          <h6 class="survey-question">
+            <i class="fas fa-circle question-icon"></i>{{ question.text }}
+          </h6>
+          <div class="question-actions">
+            <i class="fas fa-eye" (click)="openAddEditQuestionOptions(i, 'View')"></i>
+            <i class="far fa-edit" (click)="openAddEditQuestionOptions(i, 'Edit')"></i>
+          </div>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+  
