@@ -25,21 +25,49 @@ const Answers = {
   async getAnswers(req, res) {
       try{
          const {id} = req.body
-         const dataCount = await db.Answers.findAndCountAll({
+         const dataCount = await db.Answers.findAll({
             attributes: {
                 exclude: ['createdAt','updatedAt','userId'] ,
                 
-                    
+                    includes:['questionId','answers']
                 
             },
             
             where: {
                 questionId:id
+
             }
          }
            
          )
-         res.status(200).json({ dataCount})
+         let i=0,j=0,k = 0;
+          dataCount.map(data =>{
+          
+            if(data.answers==1)
+              i++;
+              else if(data.answers==2)
+              j++;
+              else if(data.answers==3)
+              k++;
+         })
+         const dataCounts={
+          "Question":id,
+          "Answers":[
+          {
+          "id":"1",
+          "count":i
+          },
+          {
+          "id":"2",
+          "count":j
+          },
+          {
+          "id":"3",
+          "count":k
+          }
+          ]
+         }
+         res.status(200).json(dataCounts);
       }catch (error) {
         res.status(500).json({ error });
       }
