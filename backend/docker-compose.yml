@@ -1,0 +1,35 @@
+version: '3.3'
+
+services:
+  node_app:
+    container_name: survey_app
+    build:
+      context: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PGDATABASE=survey_db
+      - PGUSER=vishnu
+      - PGPASSWORD=12345
+      - PGHOST=survey_db
+      - EXTERNAL_PORT=3000
+      - SECRET=e-servay-shangri
+      
+
+    depends_on:
+      - survey_db
+  survey_db:
+    container_name: survey_db
+    image: "postgres:13"
+    ports:
+      - "5431:5431"
+    environment:
+      - POSTGRES_USER=vishnu
+      - POSTGRES_PASSWORD=12345
+      - POSTGRES_DB=survey_db
+    volumes:
+      - survey_data:/var/lib/postgresql/data
+    command: -p 5431
+
+volumes:
+  survey_data: {}
