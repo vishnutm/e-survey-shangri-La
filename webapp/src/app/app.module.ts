@@ -13,6 +13,7 @@ import { SurveyListComponent } from './views/resident-user/components/survey-lis
 import { DashboardComponent } from './views/council-officer/components/dashboard/dashboard.component';
 import { AddEditQuestionsComponent } from './views/council-officer/modals/add-edit-questions/add-edit-questions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PageNotFoundComponent } from './views/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     RegisterComponent,
     SurveyListComponent,
     DashboardComponent,
-    AddEditQuestionsComponent
+    AddEditQuestionsComponent,
+    PageNotFoundComponent
   ],
   imports: [
     MatDialogModule,
