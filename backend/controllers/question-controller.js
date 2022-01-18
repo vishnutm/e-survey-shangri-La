@@ -58,7 +58,11 @@ const Questions =  {
     },
     async viewQuestions(req, res){
         try{
-            const data = await db.Questions.findAll()
+            const data = await db.Questions.findAll({
+                attributes: {
+                    exclude: ['options','count','createdAt','updatedAt'] 
+                }
+            })
             
             res.status(200).json(data)
         }catch(error){
@@ -70,6 +74,9 @@ const Questions =  {
         try{
             const {id}=req.body
             const data = await db.Questions.findOne({
+                attributes:{
+                exclude:['question','count','createdAt','updatedAt']
+                },
                 where:{id:id}
             })
             

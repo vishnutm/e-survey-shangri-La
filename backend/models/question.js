@@ -20,6 +20,7 @@ const Questions = db.define('question',{
         type: Sequalize.JSONB,
         allowNull: false
     },
+   
     count:{
         type: Sequalize.INTEGER,
         allowNull:true
