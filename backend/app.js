@@ -3,7 +3,7 @@ const cors = require('cors')
 const PORT = 3000
 
 const sequelize = require('./util/database')
-sequelize.sync({ force: true });
+sequelize.sync({ force: false });
 
 const userRouter = require('./routers/user')
 const adminRouter = require('./routers/admin')

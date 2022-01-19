@@ -16,7 +16,7 @@ router.get('/',usercontroller.getAll)
 router.post('/user/logout', usercontroller.logout);
 router.post('/viewSNI',usercontroller.singleSNI);
 router.post('/addAnswers',answerController.createAnswers)
-router.post('/getCount',answerController.getAnswers)
+router.post('/getCount', answerController.getAnswers)
 module.exports = router
 
 

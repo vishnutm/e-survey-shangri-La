@@ -4,21 +4,22 @@ const Joi = require("joi");
 const Answers = {
   async createAnswers(req, res) {
     try {
-      const { questionid, Answers, userid } = req.body;
+      const { questionid, optionId, userId } = req.body;
       const schema = Joi.object({
         questionid: Joi.number().required(),
-        
+        optionId: Joi.number().required(),
+        userId: Joi.string().required(),
       })
-      const {error,value} = schema.validate(req.body)
+      const { error } = schema.validate(req.body)
 
       if (error) {
-          throw error.message
+        throw error.message
       }
 
       const data = await db.Answers.create({
         questionId: questionid,
-        answers: Answers,
-        userId: userid,
+        optionId,
+        userId: userId,
       });
       return res.status(200).json(data);
     } catch (error) {
@@ -26,54 +27,24 @@ const Answers = {
     }
   },
   async getAnswers(req, res) {
-      try{
-         const {id} = req.body
-         const dataCount = await db.Answers.findAll({
-            attributes: {
-                exclude: ['createdAt','updatedAt','userId'] ,
-                
-                    includes:['questionId','answers']
-                
-            },
-            
-            where: {
-                questionId:id
-
-            }
-         }
-           
-         )
-         let i=0,j=0,k = 0;
-          dataCount.map(data =>{
-          
-            if(data.answers==1)
-              i++;
-              else if(data.answers==2)
-              j++;
-              else if(data.answers==3)
-              k++;
-         })
-         const dataCounts={
-          "Question":id,
-          "Answers":[
-          {
-          "id":"1",
-          "count":i
-          },
-          {
-          "id":"2",
-          "count":j
-          },
-          {
-          "id":"3",
-          "count":k
+    try {
+      const { id } = req.body
+      const dataCounts = await db.Questions.findOne({ where: { id }, attributes: ['id', 'question'], include: [{ model: db.Options, attributes: ['id'], include: [db.Answers]}]})
+      const data = {
+        id: dataCounts.id, 
+        question: dataCounts.question,
+        Answers: dataCounts.options.map((x)=>{
+          return {
+            id: x.id,
+            count: x.answers.length
           }
-          ]
-         }
-         res.status(200).json(dataCounts);
-      }catch (error) {
-        res.status(500).json({ error });
+        })
       }
+      res.status(200).json(data);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error });
+    }
   }
 };
 module.exports = Answers;
