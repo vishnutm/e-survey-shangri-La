@@ -70,7 +70,7 @@ const Questions = {
     },
     async viewQuestions(req, res) {
         try {
-            const data = await db.Questions.findAll()
+            const data = await db.Questions.findAll({include: [{model: db.Options, attributes: ['answerText', 'id']}], attributes: ['question', 'id']})
             res.status(200).send(data)
         } catch (error) {
             res.status(500).json({ error })

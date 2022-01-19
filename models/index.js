@@ -6,7 +6,7 @@ const Answers = require('./answer')
 const Questions =  require('./question');
 const Options = require('./options');
 
-Questions.hasMany(Options, {foreignKey: 'questionId'});
+Questions.hasMany(Options, {foreignKey: 'questionId', onDelete: 'cascade'});
 Options.belongsTo(Questions, {foreignKey: 'questionId'});
 User.hasMany(Answers, {foreignKey:'userId'});
 Answers.belongsTo(User, {foreignKey:'userId'});
