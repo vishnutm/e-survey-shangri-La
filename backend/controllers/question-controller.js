@@ -41,9 +41,10 @@ const Questions =  {
         const {question,options}=req.body
         try{
            
-           const data = await db.Questions.findOne({
-                where: {id:id}
-            })
+           const answer = await Answers.findAll()
+           if (answer==null) {
+               return res.status(403).json('answers where already present')
+           }
            
             const updateData= db.Questions.update({
                 question:question,
