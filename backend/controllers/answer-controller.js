@@ -5,12 +5,15 @@ const Answers = {
   async createAnswers(req, res) {
     try {
       const { questionid, Answers, userid } = req.body;
+      const schema = Joi.object({
+        questionid: Joi.number().required(),
+        
+      })
+      const {error,value} = schema.validate(req.body)
 
-      // const {error,value} = schema.validate(req.body)
-
-      // if (error) {
-      //     throw error.message
-      // }
+      if (error) {
+          throw error.message
+      }
 
       const data = await db.Answers.create({
         questionId: questionid,

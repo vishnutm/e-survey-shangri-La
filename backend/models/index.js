@@ -1,7 +1,7 @@
 const User = require('./user');
 const Login = require('./login');
 const sni = require('./sni');
-
+const admin = require('./admin');
 const Answers = require('./answer')
 const Questions =  require('./question')
 

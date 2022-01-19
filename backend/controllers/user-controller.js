@@ -192,7 +192,47 @@ async gernerateSni(req, res){
         }catch(error){
             res.status(500).json({ error})
         }
-        }
+        },
+
+        async loginAdmin(req, res) {
+            try {
+                // Get user input
+                const { email, password } = req.body;
+            
+                // Validate user input
+                if (!(email && password)) {
+                  res.status(400).json({ message:"All input is required"});
+                }
+                // Validate if user exist in our database
+                const user = await db.Admin.findOne({ 
+                    where: { email: email}
+                });
+            
+               
+                  // Create token
+                  const token = jwt.sign(
+                    { user_id: user._id, email },
+                    process.env.SECRET,
+                    {
+                      expiresIn: "2h",
+                    }
+                  );
+            user.token=token;
+                  // save user token
+                  await db.Admin.update({
+                  token:token
+                  },{
+                      where: {email: email}
+                  })
+            
+                  // user
+                  res.status(200).json(user);
+                
+              } catch (err) {
+                res.status(500).json(err.message);
+              }
+            
+        },
 
 }
 module.exports = Users;
