@@ -12,8 +12,7 @@ const Questions =  {
             question: Joi.string().required(),
             count:Joi.number().positive(),
             options: Joi.array().items(Joi.object({
-                id: Joi.number().positive().required(),
-                text : Joi.string().required()
+                answerText : Joi.string().required()
             }))
           })
 
@@ -26,7 +25,8 @@ const Questions =  {
                 const data = await db.Questions.create({
                 question: question,
                 options:options
-
+            }, {
+                include: [db.Options]
             })
             return res.status(200).json(data)
         } catch (error) {
@@ -59,9 +59,7 @@ const Questions =  {
     async viewQuestions(req, res){
         try{
             const data = await db.Questions.findAll({
-                attributes: {
-                    exclude: ['options','count','createdAt','updatedAt'] 
-                }
+                attributes: ['question', 'id']
             })
             
             res.status(200).json(data)
@@ -74,9 +72,7 @@ const Questions =  {
         try{
             const {id}=req.body
             const data = await db.Questions.findOne({
-                attributes:{
-                exclude:['question','count','createdAt','updatedAt']
-                },
+                attributes: ['question', 'id'],
                 where:{id:id}
             })
             

@@ -4,7 +4,7 @@
 const Sequalize = require('sequelize')
 const db = require('../util/database')
 
-const Answers = db.define('answer', {
+const Options = db.define('option', {
 
     id: {
         type: Sequalize.INTEGER,
@@ -17,17 +17,12 @@ const Answers = db.define('answer', {
         allowNull: false,
         
     },
-    optionId: {
-        type: Sequalize.INTEGER,
+    answerText: {
+        type: Sequalize.TEXT,
         allowNull: false
-    },
-    userId:{
-        type: Sequalize.INTEGER,
-        
-        
     }
 })
 
 
 
-module.exports = Answers;
+module.exports = Options;
