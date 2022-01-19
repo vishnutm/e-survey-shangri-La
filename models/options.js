@@ -2,17 +2,19 @@ const Sequalize = require('sequelize');
 
 const db = require('../util/database')
 
-const Questions = db.define('question',{
+const Options = db.define('options',{
     id:{
         type: Sequalize.INTEGER,
         autoIncrement: true,
         allowNull:false,
         primaryKey: true,
     },
-    question:{
-        type:Sequalize.STRING,
-        unique: true,
+    questionId:{
+        type: Sequalize.INTEGER,
         allowNull:false
+    },
+    answerText:{
+        type: Sequalize.STRING
     }
 })
-module.exports = Questions;
+module.exports = Options;

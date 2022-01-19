@@ -17,13 +17,14 @@ const Answers = db.define('answer', {
         allowNull: false,
         
     },
-    answers: {
-        type: Sequalize.STRING,
+    optionId: {
+        type: Sequalize.INTEGER,
+        allowNull: false
 
     },
     userId:{
         type: Sequalize.INTEGER,
-        
+        allowNull: false
     }
 })
 
