@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-let db = require('../models/token');
+let db = require('../models');
 
 const Auth = {
     
@@ -13,15 +13,17 @@ const Auth = {
      */
     async verifyToken(req, res, next) {
         const token = req.headers['x-access-token'];
+        console.log('token',token);
+        console.log('ENV',process.env.SECRET)
         if(!token) {
           return res.status(400).send({ 'message': 'Token is not provided' });
         }
         try {
           const decoded = await jwt.verify(token, process.env.SECRET);
-          db.Token.findOne({
+          db.User.findOne({
             where:{
-              verifyToken: token,
-              tokentype: 'session'
+              token: token,
+              
             }
           }).then((tokenResp)=>{
             if(tokenResp!=null){

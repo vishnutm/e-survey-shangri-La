@@ -1,5 +1,6 @@
 const questionController = require('../controllers/question-controller');
-const user = require('../controllers/user-controller')
+const user = require('../controllers/user-controller');
+
 const express = require('express')
 
 const router = express.Router()

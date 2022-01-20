@@ -1,7 +1,9 @@
 const usercontroller = require('../controllers/user-controller');
 const questionController = require('../controllers/question-controller');
 const answerController = require('../controllers/answer-controller');
-const express = require('express')
+
+const express = require('express');
+const Auth = require('../middleWare/auth');
 
 const router = express.Router()
 
@@ -13,10 +15,11 @@ router.post('/login',usercontroller.login)
 router.post('/sni',usercontroller.gernerateSni)
 
 router.get('/',usercontroller.getAll)
-router.post('/user/logout', usercontroller.logout);
+router.post('/logout', usercontroller.logout);
 router.post('/viewSNI',usercontroller.singleSNI);
-router.post('/addAnswers',answerController.createAnswers)
+router.post('/addAnswers',Auth.verifyToken, answerController.createAnswers)
 router.post('/getCount', answerController.getAnswers)
+router.post('/loginUser',usercontroller.loginUser)
 module.exports = router
 
 

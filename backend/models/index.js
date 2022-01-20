@@ -16,5 +16,6 @@ User.hasMany(Answers,{foreignKey:'userId'});
 Answers.belongsTo(User,{foreignKey:'userId'});
 Questions.hasMany(Answers, {foreignKey:'id'});
 Answers.belongsTo(Questions,{foreignKey:'questionId'});
+//Login.belongsTo(User,{foreignKey:'userId'});
 
 module.exports = { User, Login, sni, Answers, Questions, Options, sequelize,Admin};

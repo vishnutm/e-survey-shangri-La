@@ -4,29 +4,25 @@
 const Sequalize = require('sequelize');
 
 const db = require('../util/database')
-
-
-
 const Login = db.define('login', {
 
-    id: {
-        type: Sequalize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true,
+    tokenId:{
+        type:Sequalize.INTEGER,
+         primaryKey: true,
+       autoIncrement:true
     },
-    username: {
-        type: Sequalize.STRING,
-        allowNull: false,
-        unique: true,
+    verifyToken:{
+        type:Sequalize.STRING,
+        unique: true
     },
-    lastLogin: {
-        type: Sequalize.DATE,
-        allowNull: false
+    userId:{
+        type:Sequalize.INTEGER
+        
     },
-    token: {
-        type: Sequalize.STRING
-    },
+    tokentype:{
+        type:Sequalize.STRING
+    }
+
 
 })
 module.exports = Login;

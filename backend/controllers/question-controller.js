@@ -65,19 +65,19 @@ const Questions =  {
 
 
     async updateOpitions(req, res){
-        const {id} =req.body
-        const {question,optionId}=req.body
+       
+        const {questionid,optionId,answerText}=req.body
         try{
 
             const answer = await db.Answers.findOne({
                 where: {
-                    questionId:id
+                    questionId:questionid
                 }})
                 if(answer == null){
                     const updateOpition = await db.Options.update({
                         answerText:answerText
                     },{
-                        where: {questionId: id, id: optionId},
+                        where: {questionId: questionid, id: optionId},
                     }
                     )
                     return res.status(200).send(
