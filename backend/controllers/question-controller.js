@@ -62,6 +62,35 @@ const Questions =  {
             res.status(500).json({ error })
         }
     },
+
+
+    async updateOpitions(req, res){
+        const {id} =req.body
+        const {question,optionId}=req.body
+        try{
+
+            const answer = await db.Answers.findOne({
+                where: {
+                    questionId:id
+                }})
+                if(answer == null){
+                    const updateOpition = await db.Options.update({
+                        answerText:answerText
+                    },{
+                        where: {questionId: id, id: optionId},
+                    }
+                    )
+                    return res.status(200).send(
+                        {"true":updateOpition})
+                }
+                else{
+                    return res.status(400).json({message:'Question already answered'})
+                }
+        }catch(error){
+            res.status(500).json({ error })
+        }
+    },
+
     async viewQuestions(req, res){
         try{
             const data = await db.Questions.findAll({
