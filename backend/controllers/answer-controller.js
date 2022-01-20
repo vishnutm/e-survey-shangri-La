@@ -19,7 +19,7 @@ const Answers = {
       const data = await db.Answers.create({
         questionId: questionid,
         optionId,
-        userId: userId,
+        userId: userId
       });
       return res.status(200).json(data);
     } catch (error) {

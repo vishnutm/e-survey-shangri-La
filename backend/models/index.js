@@ -1,7 +1,7 @@
 const User = require('./user');
 const Login = require('./login');
 const sni = require('./sni');
-const admin = require('./admin');
+const Admin = require('./admin');
 const Answers = require('./answer')
 const Questions =  require('./question');
 const Options = require('./options');
@@ -17,4 +17,4 @@ Answers.belongsTo(User,{foreignKey:'userId'});
 Questions.hasMany(Answers, {foreignKey:'id'});
 Answers.belongsTo(Questions,{foreignKey:'questionId'});
 
-module.exports = { User, Login, sni, Answers, Questions, Options, sequelize};
+module.exports = { User, Login, sni, Answers, Questions, Options, sequelize,Admin};

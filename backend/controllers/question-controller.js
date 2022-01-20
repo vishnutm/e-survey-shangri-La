@@ -40,18 +40,24 @@ const Questions =  {
         const {id} =req.body
         const {question,options}=req.body
         try{
-           
-           const data = await db.Questions.findOne({
-                where: {id:id}
-            })
-           
-            const updateData= db.Questions.update({
-                question:question,
-                options:options
-            },{
-                where: {id:id}
-            })
-            return res.status(200).send({updateData})
+
+            const answer = await db.Answers.findOne({
+                where: {
+                    questionId:id
+                }})
+                if(answer == null){
+                    const updateData = await db.Questions.update({
+                        question:question
+                    },{
+                        where: {id:id}
+                    }
+                    )
+                    return res.status(200).send(
+                        {"true":updateData})
+                }
+                else{
+                    return res.status(400).json({message:'Question already answered'})
+                }
         }catch(error){
             res.status(500).json({ error })
         }

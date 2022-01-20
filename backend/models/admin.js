@@ -15,17 +15,17 @@ const Admin = db.define('admin', {
         type: Sequalize.STRING,
         allowNull: false,
         unique: true,
-        defaultValue:'Admin'
+        defaultValue: 'Admin'
     },
     email: {
         type: Sequalize.STRING,
         allowNull: false,
         unique: true,
-        defaultValue:'admin@shangrila.gov.un'
+        defaultValue: 'admin@shangrila.gov.un'
     },
     password: {
         type: Sequalize.STRING,
-        defaultValue:'shangrila@2021$'
+        defaultValue: 'adminshangrila@2021$'
     },
     createdAt: {
         type: Sequalize.DATE
