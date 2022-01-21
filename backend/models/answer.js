@@ -1,8 +1,11 @@
 
 
-
+/**
+ * Model to enter Answer
+ */
 const Sequalize = require('sequelize')
 const db = require('../util/database')
+
 
 const Answers = db.define('answer', {
 

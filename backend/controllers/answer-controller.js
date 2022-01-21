@@ -1,7 +1,18 @@
+/**
+ * Controller to insert Answers
+ */
 let db = require("../models");
 
 const Joi = require("joi");
+
+
 const Answers = {
+  /**
+   * API to add answers to questions
+   * @param {*} req 
+   * @param {*} res 
+   * @returns 
+   */
   async createAnswers(req, res) {
     try {
       const { questionid, optionId, userId } = req.body;
@@ -26,6 +37,12 @@ const Answers = {
       res.status(500).json({ error });
     }
   },
+
+  /**
+   * API to get Answers
+   * @param {*} req 
+   * @param {*} res 
+   */
   async getAnswers(req, res) {
     try {
       const { id } = req.body

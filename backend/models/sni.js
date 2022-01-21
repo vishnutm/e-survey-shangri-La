@@ -1,3 +1,6 @@
+/**
+ * Model to enter SNI details
+ */
 const Sequalize = require('sequelize');
 
 const db = require('../util/database')

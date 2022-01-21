@@ -1,13 +1,23 @@
+/**
+ * Controller to manage Questions
+ */
 let db = require('../models');
 
 const Joi = require('joi')
+
+
 const Questions =  {
 
-
+/**
+ * API to add questions
+ * @param {*question,options} req 
+ * @param {*} res 
+ * @returns 
+ */
     async Create(req, res) {
 
 
-        const {question,options,count} = req.body;
+        const {question,options} = req.body;
         const schema = Joi.object({
             question: Joi.string().required(),
             count:Joi.number().positive(),
@@ -35,6 +45,13 @@ const Questions =  {
 
 
     },
+
+    /**
+     * API to update question under certain conditions
+     * @param {*} req 
+     * @param {*} res 
+     * @returns 
+     */
     async updateQuestion(req, res){
         
         const {id} =req.body
@@ -63,7 +80,12 @@ const Questions =  {
         }
     },
 
-
+/**
+ * API to update options
+ * @param {*} req 
+ * @param {*} res 
+ * @returns 
+ */
     async updateOpitions(req, res){
        
         const {questionid,optionId,answerText}=req.body
@@ -91,6 +113,11 @@ const Questions =  {
         }
     },
 
+    /**
+     * View Questions
+     * @param {*} req 
+     * @param {*} res 
+     */
     async viewQuestions(req, res){
         try{
             const data = await db.Questions.findAll({
@@ -103,6 +130,11 @@ const Questions =  {
         }
     },
 
+    /**
+     * View single questions
+     * @param {*} req 
+     * @param {*} res 
+     */
     async viewSingleQuestions(req, res){
         try{
             const {id}=req.body
@@ -116,6 +148,12 @@ const Questions =  {
             res.status(500).json({ error })
         }
     },
+
+    /**
+     * Remove Questions
+     * @param {*} req 
+     * @param {*} res 
+     */
     async removeQuestion(req, res) {
         try{
             const {id}= req.body;

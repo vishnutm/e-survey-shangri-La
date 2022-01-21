@@ -1,3 +1,6 @@
+/**
+ * Middleware to check authentication
+ */
 const jwt = require('jsonwebtoken');
 
 let db = require('../models');

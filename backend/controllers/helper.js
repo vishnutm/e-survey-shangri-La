@@ -1,6 +1,9 @@
-
+/**
+ * Controller to bcrypt password and check password
+ */
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+
 const Helper = {
     /**
      * Hash Password Method

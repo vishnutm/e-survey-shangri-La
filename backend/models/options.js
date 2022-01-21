@@ -1,5 +1,7 @@
 
-
+/**
+ * Model to enter Options
+ */
 
 const Sequalize = require('sequelize')
 const db = require('../util/database')

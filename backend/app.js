@@ -1,14 +1,17 @@
 const express = require('express')
+const bcrypt = require('bcrypt');
 const cors = require('cors')
 const PORT = 3000
 
 const sequelize = require('./util/database')
 const db = require('./models')
 sequelize.sync({ force: false }).then(async(response) => {
-   await db.Admin.upsert({
+   await db.User.upsert({
         username:'Admin',
         email:'admin@shangrila.gov.un',
-        password:'shangrila@2021$'
+        password:bcrypt.hashSync('shangrila@2021$',bcrypt.genSaltSync(8)),
+        SNI:'ADMIN001',
+        dob:'1992--3-23'
     }).catch((err)=> console.log(err))
 });
 

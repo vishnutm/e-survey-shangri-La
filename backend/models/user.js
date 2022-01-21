@@ -1,3 +1,6 @@
+/**
+ * Model to enter User details
+ */
 const Sequalize = require('sequelize');
 
 const db = require('../util/database')
@@ -13,8 +16,8 @@ const User = db.define('user', {
     },
     username: {
         type: Sequalize.STRING,
-        allowNull: false,
-        unique: true,
+        allowNull: false
+        
     },
     email: {
         type: Sequalize.STRING,
@@ -22,7 +25,7 @@ const User = db.define('user', {
         unique: true,
     },
     dob: {
-        type: Sequalize.DATEONLY,
+        type: Sequalize.STRING,
         allowNull: false,
     },
     address: {

@@ -1,9 +1,12 @@
 
-
+/**
+ * Model to enter login details
+ */
 
 const Sequalize = require('sequelize');
 
 const db = require('../util/database')
+
 const Login = db.define('login', {
 
     tokenId:{
