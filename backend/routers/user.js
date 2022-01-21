@@ -11,7 +11,7 @@ const router = express.Router()
 //CRUD 
 console.log('CRUD')
 router.post('/register',usercontroller.create);
-router.post('/login',usercontroller.login)
+//router.post('/login',usercontroller.login)
 router.post('/sni',usercontroller.gernerateSni)
 
 router.get('/',usercontroller.getAll)

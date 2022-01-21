@@ -1,6 +1,7 @@
 let db = require("../models");
 // let sni = require('../models/sni');
 // let sniNo = require('../models/sni');
+const { Op } = require("sequelize");
 let Helper = require("./helper");
 let jwt = require("jsonwebtoken");
 const fs = require("fs");
@@ -29,76 +30,84 @@ const Users = {
           });
         });
     } catch (err) {
-      throw new Error(err);
+      throw err;
     }
   },
 
   async create(req, res) {
     const { username, email, password, dob, address, SNI } = req.body;
+try{
 
-    const schema = Joi.object({
-      username: Joi.string().required(),
-      email: Joi.string().email().required(),
-      password: Joi.string().required(),
-      dob: Joi.date().required(),
-      address: Joi.string().required(),
-      SNI: Joi.string().min(6).required(),
+  const schema = Joi.object({
+    username: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
+    dob: Joi.date().required(),
+    address: Joi.string().required(),
+    SNI: Joi.string().min(6).required(),
+  });
+
+  const { error, value } = schema.validate(req.body);
+
+  if (error) {
+    throw error.message;
+  }
+  const hashPassword = Helper.hashPassword(password);
+
+  await db.User.findOne({
+    where: {
+      
+      [Op.or]: [{email: email, }, {SNI: SNI}]
+    },
+  })
+    .then(async(resp) => {
+     
+      if (resp == null) {
+      await  db.sni
+          .findOne({
+            where: {
+              sniNo: SNI,
+            },
+          })
+          .then((responseSNI) => {
+            
+            if (responseSNI !== null) {
+              db.User.create({
+                username,
+                email,
+                password: hashPassword,
+                dob,
+                address,
+                SNI,
+                createdAt: Date.now(),
+              }).then(async (resp) => {
+                res.status(200).send({
+                  status: "success",
+                  data: resp.data,
+                  message: "User registered successfully",
+                });
+              });
+            } else {
+              return res.status(400).json({
+                status: false,
+                message: "SNI number does not exist",
+              });
+            }
+          });
+      } else {
+        res.status(400).send({
+          status: false,
+          message: "User with same email already exists or SNI already used" ,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
     });
 
-    const { error, value } = schema.validate(req.body);
-
-    if (error) {
-      throw error.message;
-    }
-    const hashPassword = Helper.hashPassword(password);
-
-    db.User.findOne({
-      where: {
-        email: email,
-      },
-    })
-      .then((resp) => {
-        if (resp == null) {
-          db.sni
-            .findOne({
-              where: {
-                sniNo: SNI,
-              },
-            })
-            .then((responseSNI) => {
-              if (responseSNI.sniNo == SNI) {
-                db.User.create({
-                  username,
-                  email,
-                  password: hashPassword,
-                  dob,
-                  address,
-                  SNI,
-                  createdAt: Date.now(),
-                }).then(async (resp) => {
-                  res.status(200).send({
-                    status: "success",
-                    data: resp.data,
-                    message: "User registered successfully",
-                  });
-                });
-              } else {
-                return res.status(400).send({
-                  status: false,
-                  message: "SNI number does not exist",
-                });
-              }
-            });
-        } else {
-          res.status(400).send({
-            status: false,
-            message: "User with same EMAIL already exists",
-          });
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+}catch(err){
+  throw err;
+}
   },
 
   async login(req, res) {
