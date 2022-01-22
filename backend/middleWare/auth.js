@@ -23,12 +23,12 @@ const Auth = {
         }
         try {
           const decoded = await jwt.verify(token, process.env.SECRET);
-          db.User.findOne({
+         await db.Login.findOne({
             where:{
-              token: token,
-              
-            }
+              verifyToken: token
+              }
           }).then((tokenResp)=>{
+            console.log("token response",tokenResp)
             if(tokenResp!=null){
               next();
             }
