@@ -18,4 +18,4 @@ Questions.hasMany(Answers, {foreignKey:'id'});
 Answers.belongsTo(Questions,{foreignKey:'questionId'});
 
 
-module.exports = { User, Login, sni, Answers, Questions, Options, sequelize,Admin};
+module.exports = { User, Login, sni, Answers, Questions, Options, sequelize};
