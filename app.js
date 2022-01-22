@@ -1,6 +1,6 @@
 const express = require('express')
 const bcrypt = require('bcrypt');
-const cors = require('cors')
+const cors = require('cors');
 const PORT = 3000
 
 const sequelize = require('./util/database')
