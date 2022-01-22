@@ -18,6 +18,14 @@ const Questions = db.define('question',{
         type:Sequalize.STRING,
         unique: true,
         allowNull:false
+    },
+    options:{
+        type: Sequalize.JSONB,
+        allowNull: false
+    },
+    attended:{
+        type: Sequalize.BOOLEAN,
+        defaultValue: false
     }
     
 })

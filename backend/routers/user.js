@@ -25,6 +25,7 @@ router.post('/getCount',Auth.verifyToken, answerController.getAnswers)
 router.post('/loginUser',usercontroller.loginUser)
 router.post('/singleSNI',usercontroller.singleSNI)
 router.post('/getEmail',usercontroller.singleEmail)
+router.post('/questions',Auth.verifyToken,questionController.viewUserQuestions)
 module.exports = router
 
 

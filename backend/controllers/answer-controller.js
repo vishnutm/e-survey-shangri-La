@@ -16,23 +16,29 @@ const Answers = {
   async createAnswers(req, res) {
     try {
       const { questionid, optionId, userId } = req.body;
-      const schema = Joi.object({
-        questionid: Joi.number().required(),
-        optionId: Joi.number().required(),
-        userId: Joi.string().required(),
-      })
-      const { error } = schema.validate(req.body)
-
-      if (error) {
-        throw error.message
-      }
 
       const data = await db.Answers.create({
         questionId: questionid,
-        optionId,
+        optionId:optionId,
         userId: userId
-      });
-      return res.status(200).json(data);
+      }).then(async (response) => {
+        
+        if(response!= null){
+          await db.Questions.update({
+            attended:true
+
+          },
+          { 
+            where: {id:response.questionId}
+          }
+          )
+        }
+      })
+  
+            return res.status(200).json({
+              status:true,
+              message:'Question Attended'
+            });
     } catch (error) {
       res.status(500).json({ error });
     }
