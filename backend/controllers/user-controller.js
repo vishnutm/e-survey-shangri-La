@@ -185,22 +185,24 @@ const Users = {
       const SniList = await db.User.findOne({
         where: { SNI: SNI }
       }).then(async(resp)=>{
-        console.log("response",resp)
+        
         if (resp.SNI == null) {
-          console.log("responsecheck",resp.SNI)
+          
           await db. SNIList.findOne({
             where : { SNI: SNI }
           }).then(async(SNIlistresponse)=>{
-            console.log("responseSNI",SNIlistresponse)
+            
             if(SNIlistresponse.sniNo==SNI){
-              res.status(200).json({ message: "Can use SNI" });
+              res.status(200).json({ status:true, message: "Can use SNI" });
             }else{
-              res.status(400).json({ message: "SNI number not exist" });
+              res.status(200).json({ status:false,message: "SNI number does not exist" });
             }
           })
           
         } else {
-          req.status(400).json({ message: "SNI number already used" });
+          req.status(200).json({ 
+            status:false,
+            message: "SNI number already used" });
         }
       })
       
@@ -224,11 +226,11 @@ const Users = {
        
         if (resp.email == null) {
         
-              res.status(200).json({ message: "Email can be used" });
+              res.status(200).json({ status:true,message: "Email can be used" });
             
           
         } else {
-          res.status(400).json({ message: "Email already used" });
+          res.status(200).json({ statue:false,message: "Email already used" });
         }
       })
       

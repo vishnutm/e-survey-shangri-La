@@ -9,11 +9,10 @@ const express = require('express')
 const router = express.Router()
 
 
-router.post('/questions',Auth.verifyToken,questionController.Create);
-router.post('/updateQuestion',Auth.verifyToken,questionController.updateQuestion);
-router.put('/updateQptions',Auth.verifyToken,questionController.updateOpitions);
-router.get('/viewQuestions',Auth.verifyToken,questionController.viewQuestions)
+router.post('/createQuestionOption',Auth.verifyToken,questionController.Create);
+router.post('/updateQuestionOption',Auth.verifyToken,questionController.updateQuestion);
+router.get('/getAllQuestions',Auth.verifyToken,questionController.viewQuestions)
 router.delete('/removeQuestion',Auth.verifyToken,questionController.removeQuestion)
-router.post('/viewSingleQuestions',Auth.verifyToken,questionController.viewSingleQuestions)
+router.post('/getQuestionOption',Auth.verifyToken,questionController.viewSingleQuestions)
 
 module.exports =router

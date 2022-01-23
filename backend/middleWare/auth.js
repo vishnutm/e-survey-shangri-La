@@ -16,8 +16,7 @@ const Auth = {
      */
     async verifyToken(req, res, next) {
         const token = req.headers['x-access-token'];
-        console.log('token',token);
-        console.log('ENV',process.env.SECRET)
+        
         if(!token) {
           return res.status(400).send({ 'message': 'Token is not provided' });
         }
@@ -28,7 +27,7 @@ const Auth = {
               verifyToken: token
               }
           }).then((tokenResp)=>{
-            console.log("token response",tokenResp)
+            
             if(tokenResp!=null){
               next();
             }
@@ -40,7 +39,7 @@ const Auth = {
           })
         // return {};
         } catch(error) {
-            console.log("Error=", error);
+           
             
           return res.status(400).send({message: 'Invalid token'});
         }

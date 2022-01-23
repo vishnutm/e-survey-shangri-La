@@ -51,7 +51,7 @@ const Answers = {
    */
   async getAnswers(req, res) {
     try {
-      const { id } = req.body
+      const { id } = req.params;
       const question = await db.Questions.findOne({where: {id: id}, attributes: ['id', 'question', 'options']});
       const answers = await db.Answers.findAll({where: {questionId: id}, attributes: ['questionId', 'optionId']});
       if(question && answers){
@@ -63,7 +63,7 @@ const Answers = {
         return res.status(200).json({status: true, data: question});
       }
     } catch (error) {
-      console.log(error);
+      
       res.status(500).json({ error });
     }
   }

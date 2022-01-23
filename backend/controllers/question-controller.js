@@ -81,36 +81,6 @@ const Questions = {
     }
   },
 
-  /**
-   * API to update options
-   * @param {*} req
-   * @param {*} res
-   * @returns
-   */
-  async updateOpitions(req, res) {
-    
-
-    const { id } = req.body;
-    const { question, options } = req.body;
-    try {
-      const data = await db.Questions.findOne({
-        where: { id: id },
-      });
-
-      const updateData = db.Questions.update(
-        {
-          question: question,
-          options: options,
-        },
-        {
-          where: { id: id },
-        }
-      );
-      return res.status(200).send({ updateData });
-    } catch (error) {
-      res.status(500).json({ error });
-    }
-  },
 
   /**
    * View Questions
