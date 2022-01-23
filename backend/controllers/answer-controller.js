@@ -52,18 +52,63 @@ const Answers = {
   async getAnswers(req, res) {
     try {
       const { id } = req.body
-      const dataCounts = await db.Questions.findOne({ where: { id }, attributes: ['id', 'question'], include: [{ model: db.Options, attributes: ['id'], include: [db.Answers]}]})
-      const data = {
-        id: dataCounts.id, 
-        question: dataCounts.question,
-        Answers: dataCounts.options.map((x)=>{
-          return {
-            id: x.id,
-            count: x.answers.length
+      await db.Questions.findOne({ where: { id: id }, 
+        attributes: ['id', 'question','options'], 
+    
+     //include: [db.Answers]
+    })
+     .then(async(resp)=>{
+      //   console.log(resp)
+       //res.status(200).json(resp)
+       var arrob =[];
+     //  await resp.options.forEach(element => {
+         // console.log("",element)
+         for await (const element of resp.options) {
+        //   obj.push(QuestionItem["questionId"]);
+        // }
+
+       await db.Answers.findAll({
+            where :{
+              questionId:resp.id,
+              optionId:element.id
+            }
+          }).then(async(answers) => {
+            arrob.push(answers);
+            //res.status(200).json(answers)
+            
+          })
+       // });
+       }
+       // console.log("------",arrob)
+        //res.status(200).json(arrob);
+         const data = {
+        //id: dataCounts.id, 
+       // question: dataCounts.question,
+        Answers: arrob.map((x)=>{
+          console.log("vvv",x)
+          if (x!=null){
+            return {
+              id: x.id,
+              count: x['optionId']
+            }
           }
+          
         })
       }
-      res.status(200).json(data);
+      res.status(200).json({ data});
+       })
+
+      // const data = {
+      //   id: dataCounts.id, 
+      //   question: dataCounts.question,
+      //   Answers: dataCounts.options.map((x)=>{
+      //     return {
+      //       id: x.id,
+      //       count: x.answers.length
+      //     }
+      //   })
+      // }
+      //res.status(200).json(data);
     } catch (error) {
       console.log(error);
       res.status(500).json({ error });
