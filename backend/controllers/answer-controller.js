@@ -52,63 +52,16 @@ const Answers = {
   async getAnswers(req, res) {
     try {
       const { id } = req.body
-      await db.Questions.findOne({ where: { id: id }, 
-        attributes: ['id', 'question','options'], 
-    
-     //include: [db.Answers]
-    })
-     .then(async(resp)=>{
-      //   console.log(resp)
-       //res.status(200).json(resp)
-       var arrob =[];
-     //  await resp.options.forEach(element => {
-         // console.log("",element)
-         for await (const element of resp.options) {
-        //   obj.push(QuestionItem["questionId"]);
-        // }
-
-       await db.Answers.findAll({
-            where :{
-              questionId:resp.id,
-              optionId:element.id
-            }
-          }).then(async(answers) => {
-            arrob.push(answers);
-            //res.status(200).json(answers)
-            
-          })
-       // });
-       }
-       // console.log("------",arrob)
-        //res.status(200).json(arrob);
-         const data = {
-        //id: dataCounts.id, 
-       // question: dataCounts.question,
-        Answers: arrob.map((x)=>{
-          console.log("vvv",x)
-          if (x!=null){
-            return {
-              id: x.id,
-              count: x['optionId']
-            }
-          }
-          
-        })
+      const question = await db.Questions.findOne({where: {id: id}, attributes: ['id', 'question', 'options']});
+      const answers = await db.Answers.findAll({where: {questionId: id}, attributes: ['questionId', 'optionId']});
+      if(question && answers){
+        question.options.map((x)=> {
+          const item = x;
+          item['count'] = answers.filter((y)=> y.optionId === x.id).length
+          return item;
+        });
+        return res.status(200).json({status: true, data: question});
       }
-      res.status(200).json({ data});
-       })
-
-      // const data = {
-      //   id: dataCounts.id, 
-      //   question: dataCounts.question,
-      //   Answers: dataCounts.options.map((x)=>{
-      //     return {
-      //       id: x.id,
-      //       count: x.answers.length
-      //     }
-      //   })
-      // }
-      //res.status(200).json(data);
     } catch (error) {
       console.log(error);
       res.status(500).json({ error });

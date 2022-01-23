@@ -20,8 +20,8 @@ router.post('/sni',usercontroller.gernerateSni)
 router.get('/',usercontroller.getAll)
 router.post('/logout', Auth.verifyToken,usercontroller.logout);
 router.post('/viewSNI',usercontroller.singleSNI);
-router.post('/addAnswers', answerController.createAnswers)
-router.post('/getCount', answerController.getAnswers)
+router.post('/addAnswers', Auth.verifyToken,answerController.createAnswers)
+router.post('/getCount', Auth.verifyToken,answerController.getAnswers)
 router.post('/loginUser',usercontroller.loginUser)
 router.post('/singleSNI',usercontroller.singleSNI)
 router.post('/getEmail',usercontroller.singleEmail)
