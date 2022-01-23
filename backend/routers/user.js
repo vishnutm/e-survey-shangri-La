@@ -24,7 +24,8 @@ router.get('/getQuestionResponse/:id', Auth.verifyToken,answerController.getAnsw
 router.post('/login',usercontroller.loginUser)
 router.post('/uniqueSNI',usercontroller.singleSNI)
 router.post('/uniqueEmail',usercontroller.singleEmail)
-router.get('/getQuestionOption/:id',Auth.verifyToken,questionController.viewUserQuestions)
+router.post('/GetAllQuestions',Auth.verifyToken,questionController.viewUserQuestions)
+router.get('/GetQuestionOptions/:id',Auth.verifyToken,questionController.viewSingleUserQuestions)
 module.exports = router
 
 

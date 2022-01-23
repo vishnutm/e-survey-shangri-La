@@ -108,7 +108,7 @@ const Questions = {
   async viewUserQuestions(req, res) {
     try {
       var obj = [];
-      const { userId } = req.params;
+      const { userId } = req.body;
       const data = await db.Answers.findAll(
         {
           attributes: ["questionId"],
@@ -160,7 +160,24 @@ const Questions = {
       res.status(500).json({ error });
     }
   },
+  /**
+   * View single questions
+   * @param {*} req
+   * @param {*} res
+   */
+   async viewSingleUserQuestions(req, res) {
+    try {
+      const { id } = req.params;
+      const data = await db.Questions.findOne({
+        attributes: ["id","question", "options"],
+        where: { id: id },
+      });
 
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(500).json({ error });
+    }
+  },
   /**
    * Remove Questions
    * @param {*} req
