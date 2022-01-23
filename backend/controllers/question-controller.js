@@ -185,11 +185,13 @@ const Questions = {
    */
   async removeQuestion(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
+     
       const removeQuestion = await db.Questions.destroy({
-        where: { id: id },
+        where: { id: id }
         
       }).then(async(response) =>{
+        
         if(response==1){
           await db.Answers.destroy({
             where: { questionId: id }

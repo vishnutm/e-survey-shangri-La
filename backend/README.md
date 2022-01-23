@@ -2,6 +2,6 @@
 survey tool
 
 
-running command
+*running command
 
-docker-compose up
+-docker-compose up
