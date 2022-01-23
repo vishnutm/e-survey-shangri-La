@@ -39,8 +39,8 @@ const Questions = {
         options: options,
       });
       return res.status(200).json({
-        status:True,
-        Title:Added,
+        status:true,
+        title:'Added!',
         message:"Question and Options added successfully"});
     } catch (error) {
       res.status(500).json({ error });
@@ -73,8 +73,8 @@ const Questions = {
         }
       );
       return res.status(200).send({ 
-        status:True,
-        Title:updated,
+        status:true,
+        title:'Updated!',
         message:"Question and Options Updated successfully" });
     } catch (error) {
       res.status(500).json({ error });
