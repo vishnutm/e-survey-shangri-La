@@ -51,7 +51,7 @@ const Answers = {
    */
   async getAnswers(req, res) {
     try {
-      const { id } = req.body;
+      const { id } = req.params;
       let attendedUsers=0;
       const question = await db.Questions.findOne({where: {id: id}, attributes: ['id', 'question', 'options']});
       const answers = await db.Answers.findAll({where: {questionId: id}, attributes: ['questionId', 'optionId']});
