@@ -38,7 +38,10 @@ const Questions = {
         question: question,
         options: options,
       });
-      return res.status(200).json(data);
+      return res.status(200).json({
+        status:True,
+        Title:Added,
+        message:"Question and Options added successfully"});
     } catch (error) {
       res.status(500).json({ error });
     }
@@ -69,7 +72,10 @@ const Questions = {
           where: { id: id },
         }
       );
-      return res.status(200).send({ updateData });
+      return res.status(200).send({ 
+        status:True,
+        Title:updated,
+        message:"Question and Options Updated successfully" });
     } catch (error) {
       res.status(500).json({ error });
     }
