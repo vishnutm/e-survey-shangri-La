@@ -169,7 +169,7 @@ const Questions = {
     try {
       const { id } = req.body;
       const data = await db.Questions.findOne({
-        attributes: ["question", "id"],
+        attributes: ["id","question", "options"],
         where: { id: id },
       });
 
