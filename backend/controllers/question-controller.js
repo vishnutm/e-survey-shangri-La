@@ -139,14 +139,20 @@ const Questions = {
         },
         { where: { userId: userId } }
       ).then(async (response) => {
+        
+        if(response.length>0){
         for await (const QuestionItem of response) {
           obj.push(QuestionItem["questionId"]);
         }
+      } else{
+        obj = [0];
+      }
 
         await db.Questions.findAll({
           attributes: {
             exclude: ["options", "attended", "createdAt", "updatedAt"],
           },
+          order: [["id", "ASC"]],
           where: {
             [Op.not]: [{ id: obj }],
           },
