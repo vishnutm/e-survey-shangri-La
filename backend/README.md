@@ -1,6 +1,6 @@
 # e-survey-shangri-La
 survey tool
-This code contails REST APIs for survey tool
+This code contains REST APIs for survey tool
 **Docker must be installed in the system
 Goto Project folder, open terminal
 
