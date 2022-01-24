@@ -28,8 +28,8 @@ services:
       - POSTGRES_PASSWORD=12345
       - POSTGRES_DB=survey_db
     volumes:
-      - survey_data:/var/lib/postgresql/data
+      - survey_value:/var/lib/postgresql/data
     command: -p 5431
 
 volumes:
-  survey_data: {}
+  survey_value: {}

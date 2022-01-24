@@ -1,14 +1,22 @@
-# e-survey-shangri-La
-survey tool
-This code contains REST APIs for survey tool
-**Docker must be installed in the system
+# e-survey-shangri-La-Backend
+
+<br/>
+Survey tool
+<br/>
+This code contains REST APIs for survey tool<br/>
+## Docker must be installed in the system
+<br/>
 Goto Project folder, open terminal
+<br/><br/>
+-then
 
--then   
     -cd backend
+<br/>
 -command to run code
-    -docker-compose up --build (it will host the nodeapp and postgres database image) =>it will run on port 3000
+<br/>
 
+    -docker-compose up --build
 
--To stop the server 
+-To stop the server
+
         -docker-compose down
