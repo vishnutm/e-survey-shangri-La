@@ -11,8 +11,11 @@ sequelize.sync({ force: false }).then(async(response) => {
         email:'admin@shangrila.gov.un',
         password:bcrypt.hashSync('shangrila@2021$',bcrypt.genSaltSync(8)),
         SNI:'ADMIN001',
-        dob:'1992--3-23'
-    }).catch((err)=> console.log(err))
+        dob:'1992-3-23'
+    }).catch((err)=> console.log(err)),
+    await db.sni.bulkCreate(
+       [{sniNo:'MM2874Z6'},{sniNo:'FEQQ6UUG'},{sniNo:'34GC829B'},{sniNo:'CB8FBCCM'}]
+    ).catch((err)=> console.log(err))
 });
 
 const userRouter = require('./routers/user')
