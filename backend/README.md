@@ -2,12 +2,12 @@
 survey tool
 This code contails REST APIs for survey tool
 **Docker must be installed in the system
-*running command
--clone the code form github
+Goto Project folder, open terminal
+
 -then   
     -cd backend
 -command to run code
-    -docker-compose up --build
+    -docker-compose up --build (it will host the nodeapp and postgres database image) =>it will run on port 3000
 
 
 -To stop the server 
